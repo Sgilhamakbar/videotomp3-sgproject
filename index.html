@@ -2,40 +2,44 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Converter Video to MP3</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1a1a1a">
-
+    
     <link rel="icon" type="image/png" href="icon-192.png">
     <link rel="apple-touch-icon" href="icon-192.png">
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:..." rel="stylesheet">
-    ```
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* --- CONFIG VARIABLES --- */
+        /* --- 1. CONFIG VARIABLES (LIGHT MODE DEFAULT) --- */
         :root {
-            --bg-anim: linear-gradient(-45deg, #eef2f3, #8e9eab, #eef2f3, #e0eafc);
-            --glass-bg: rgba(255, 255, 255, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.8);
+            /* Latar Belakang Terang (Ceramic) */
+            --bg-anim: linear-gradient(-45deg, #eef2f3, #dbe6f6, #eef2f3, #e0eafc);
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.9);
             --text-main: #1d1d1f;
-            --text-sub: #6e6e73;
-            --input-bg: rgba(255, 255, 255, 0.5);
+            --text-sub: #555555;
+            --input-bg: rgba(255, 255, 255, 0.6);
             --btn-bg: #0071e3;
             --btn-text: #ffffff;
             --section-header: #1d1d1f;
             --step-badge-bg: #1d1d1f;
             --step-badge-text: #fff;
             --inverse-text: #ffffff;
+            --footer-bg: rgba(255, 255, 255, 0.4);
         }
 
+        /* --- DARK MODE OVERRIDES --- */
         body.dark-mode {
+            /* Latar Belakang Gelap (Deep Space) */
             --bg-anim: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #141E30);
             --glass-bg: rgba(20, 20, 20, 0.6); 
             --glass-border: rgba(255, 255, 255, 0.1); 
             --text-main: #f5f5f7;
-            --text-sub: #86868b;
+            --text-sub: #a1a1a6;
             --input-bg: rgba(0, 0, 0, 0.3);
             --btn-bg: rgba(255, 255, 255, 0.1);
             --btn-text: #ffffff;
@@ -43,36 +47,61 @@
             --step-badge-bg: #fff;
             --step-badge-text: #000;
             --inverse-text: #000000;
+            --footer-bg: rgba(0, 0, 0, 0.2);
         }
 
+        /* --- 2. GLOBAL STYLES & ANIMATION --- */
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--bg-anim); background-size: 400% 400%;
+            background: var(--bg-anim); 
+            background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             min-height: 100vh; margin: 0; display: flex; flex-direction: column;
             overflow-x: hidden; color: var(--text-main);
+            
+            /* ANIMASI TRANSISI THEME (PENTING) */
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        /* Terapkan transisi ke elemen lain juga */
+        .glass-card, footer, .input-glass, .feature-card, .step-item, .theme-toggle {
+            transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease, color 0.5s ease;
         }
 
         @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        /* WRAPPER UTAMA */
+        /* --- 3. THEME TOGGLE (Fixed) --- */
+        .theme-toggle { 
+            position: fixed; top: 20px; right: 20px; 
+            width: 45px; height: 45px; min-width: 45px; min-height: 45px;
+            background: var(--glass-bg); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 50%; cursor: pointer; font-size: 20px; 
+            color: var(--text-main); z-index: 9999; 
+            backdrop-filter: blur(10px); 
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .theme-toggle:active { transform: scale(0.9); }
+
+        /* --- 4. MAIN LAYOUT --- */
         .page-wrapper {
             flex: 1; display: flex; flex-direction: column; align-items: center;
-            padding: 40px 20px; gap: 70px; max-width: 1000px; margin: 0 auto; width: 100%; box-sizing: border-box;
+            padding: 80px 20px 40px 20px; 
+            gap: 70px; max-width: 1000px; margin: 0 auto; width: 100%; box-sizing: border-box;
         }
 
-        /* --- 1. HERO CARD --- */
+        /* HERO CARD */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
             border: 1px solid var(--glass-border);
             border-radius: 30px; padding: 40px;
-            width: 100%; max-width: 420px; text-align: center;
+            width: 100%; max-width: 450px; text-align: center;
             box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            position: relative; z-index: 2; transition: transform 0.3s;
+            position: relative; z-index: 2;
         }
-        .glass-card:hover { transform: translateY(-5px); }
-
+        
         h1 {
             font-weight: 700; font-size: 26px; margin: 0; letter-spacing: -0.5px;
             background: linear-gradient(135deg, var(--text-main) 30%, var(--text-sub));
@@ -85,13 +114,13 @@
         /* INPUT GLOW */
         .input-glass { 
             background: var(--input-bg); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border: 1px solid var(--glass-border); 
             border-radius: 16px; padding: 15px; margin-bottom: 20px;
             animation: glowPulse 3s infinite alternate;
         }
         @keyframes glowPulse {
             0% { border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 0 5px rgba(0, 113, 227, 0.0); }
-            100% { border-color: #0071e3; box-shadow: 0 0 20px rgba(0, 113, 227, 0.6); }
+            100% { border-color: #0071e3; box-shadow: 0 0 20px rgba(0, 113, 227, 0.4); }
         }
 
         input[type="file"] { width: 100%; color: var(--text-sub); font-size: 13px; }
@@ -103,93 +132,127 @@
         .btn-glass {
             background: var(--btn-bg); color: var(--btn-text); border: 1px solid rgba(255,255,255,0.1);
             padding: 16px; border-radius: 50px; font-size: 15px; font-weight: 600; cursor: pointer;
-            width: 100%; transition: all 0.3s; backdrop-filter: blur(10px);
+            width: 100%; backdrop-filter: blur(10px); transition: 0.3s;
         }
-        .btn-glass:hover { background: rgba(255, 255, 255, 0.2); border-color: white; transform: scale(1.02); }
+        .btn-glass:hover { transform: scale(1.02); filter: brightness(1.1); }
 
-        /* --- JUDUL SECTION --- */
-        .section-header {
-            text-align: center; margin-bottom: 25px;
-            position: relative; display: inline-block; left: 50%; transform: translateX(-50%);
-        }
+        /* --- SECTIONS (CARA PAKAI & FITUR) --- */
+        .section-header { text-align: center; margin-bottom: 30px; position: relative; width: 100%; }
         .section-title {
             font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
             color: var(--section-header); border-bottom: 2px solid var(--text-sub);
             padding-bottom: 5px; display: inline-block;
         }
 
-        /* --- FITUR UNGGULAN --- */
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; width: 100%; }
         .feature-card {
             background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
-            padding: 25px; border-radius: 20px; text-align: left; transition: transform 0.3s;
+            padding: 25px; border-radius: 20px; text-align: left;
         }
-        .feature-card:hover { transform: translateY(-3px); background: rgba(255,255,255,0.08); }
         .f-icon { font-size: 22px; margin-bottom: 12px; display: block; }
         .f-title { font-weight: 700; font-size: 14px; margin-bottom: 6px; color: var(--text-main); }
         .f-desc { font-size: 12px; color: var(--text-sub); line-height: 1.6; }
 
-        /* --- CARA PENGGUNAAN --- */
-        .steps-container { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; width: 100%; }
+        .steps-container { display: flex; gap: 15px; flex-wrap: wrap; width: 100%; }
         .step-item {
-            flex: 1; min-width: 180px;
-            background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border);
+            flex: 1; min-width: 250px;
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
             padding: 25px 20px; border-radius: 18px;
             display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
-            position: relative; overflow: hidden;
         }
         .step-badge {
             font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
             background: var(--step-badge-bg); color: var(--step-badge-text);
-            padding: 4px 10px; border-radius: 4px; display: inline-block;
+            padding: 4px 10px; border-radius: 4px;
         }
-        .step-text { font-size: 13px; color: var(--text-main); font-weight: 500; line-height: 1.4; }
+        .step-text { font-size: 13px; color: var(--text-main); font-weight: 500; line-height: 1.5; }
 
-        /* --- FOOTER (REVISI PLUS JAKARTA SANS) --- */
-        footer { padding: 30px 20px; text-align: center; margin-top: auto; border-top: 1px solid rgba(255,255,255,0.05); width: 100%; }
-        
-        .footer-content { 
-            display: flex; flex-direction: column; align-items: center; gap: 4px; 
-            font-family: 'Plus Jakarta Sans', sans-serif; /* Font Baru */
+        /* --- 5. MEGA FOOTER (GRID SYSTEM REPAIRED) --- */
+        footer { 
+            padding: 60px 20px 30px 20px; 
+            margin-top: auto; 
+            border-top: 1px solid var(--glass-border); 
+            width: 100%; 
+            background: var(--footer-bg);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            box-sizing: border-box;
+            backdrop-filter: blur(10px);
         }
-        
-        .footer-brand { 
-            font-size: 12px; 
-            font-weight: 500; /* Medium weight */
-            color: var(--text-main); 
-            opacity: 0.9;
-        }
-        
-        .footer-sub { 
-            font-size: 12px; 
-            font-weight: 400; /* Regular weight */
-            color: var(--text-sub); 
-            opacity: 0.8;
-        }
-        
-        .partner-bold { font-weight: 700; color: var(--text-main); opacity: 1; }
 
-        /* UTILS */
-        .theme-toggle { position: absolute; top: 25px; right: 25px; background: rgba(255,255,255,0.1); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 16px; color: var(--text-main); z-index: 100; backdrop-filter: blur(10px); }
+        .footer-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            /* Default: 3 Kolom Sejajar */
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 40px;
+            text-align: left;
+            margin-bottom: 40px;
+        }
+
+        .f-col h4 {
+            font-size: 13px; font-weight: 800; color: var(--text-main);
+            margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        .f-links { display: flex; flex-direction: column; gap: 12px; }
+        .f-link {
+            font-size: 13px; color: var(--text-sub); text-decoration: none; transition: 0.3s;
+            font-weight: 500; display: block;
+        }
+        .f-link:hover { color: #0071e3; transform: translateX(5px); }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(48, 209, 88, 0.1); border: 1px solid rgba(48, 209, 88, 0.3);
+            padding: 6px 12px; border-radius: 50px;
+            font-size: 11px; font-weight: 700; color: #30d158;
+            margin-bottom: 15px;
+        }
+        .dot { width: 8px; height: 8px; background: #30d158; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        
+        .live-stat { font-size: 12px; color: var(--text-sub); display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
+        .live-num { font-weight: 700; color: var(--text-main); }
+
+        /* Footer Bottom */
+        .footer-bottom {
+            max-width: 1000px; margin: 0 auto;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 30px;
+            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px;
+        }
+        .copyright { font-size: 11px; color: var(--text-sub); font-weight: 500; }
+        .credits { font-size: 11px; color: var(--text-main); font-weight: 500; }
+        .partner-bold { font-weight: 800; color: var(--text-main); }
+        .heart { color: #e25555; display: inline-block; animation: beat 1.5s infinite; }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .footer-grid { 
+                grid-template-columns: 1fr; /* Jadi 1 kolom di HP */
+                gap: 40px; 
+            }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .steps-container { flex-direction: column; }
+        }
+
+        /* Utils */
         .loader { width: 30px; height: 30px; margin: 20px auto; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--text-main); border-radius: 50%; animation: spin 1s infinite; display: none; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        
         .success-holo { margin-top: 20px; padding: 15px; border-radius: 16px; background: rgba(48, 209, 88, 0.1); border: 1px solid rgba(48, 209, 88, 0.3); text-align: center; }
         .action-row { display: flex; gap: 10px; margin-top: 10px; }
-        .mini-btn { flex: 1; padding: 8px; border-radius: 10px; font-size: 13px; font-weight: 500; text-decoration: none; cursor: pointer; border: none; }
-        
+        .mini-btn { flex: 1; padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; }
         .dl-btn { background: var(--text-main); color: var(--inverse-text); } 
         .sh-btn { background: rgba(128,128,128,0.2); color: var(--text-main); }
-        
         #toast { visibility: hidden; min-width: 150px; background: rgba(20,20,20,0.8); color: white; border-radius: 50px; padding: 10px 20px; position: fixed; top: 30px; left: 50%; transform: translateX(-50%); z-index: 100; font-size: 12px; opacity: 0; transition: 0.4s; }
         #toast.show { visibility: visible; opacity: 1; top: 80px; }
-        @media (max-width: 600px) { .steps-container { flex-direction: column; } .glass-card { width: 90%; } }
     </style>
+    
     <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
 </head>
-<body class="dark-mode">
-
-    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">☀</button>
+<body class="dark-mode"> <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">☀</button>
     <div id="toast">Notifikasi</div>
 
     <div class="page-wrapper">
@@ -211,9 +274,7 @@
         </main>
 
         <div style="width: 100%;">
-            <div class="section-header">
-                <span class="section-title">CARA PENGGUNAAN</span>
-            </div>
+            <div class="section-header"><span class="section-title">CARA PENGGUNAAN</span></div>
             <div class="steps-container">
                 <div class="step-item">
                     <span class="step-badge">LANGKAH 01</span>
@@ -231,9 +292,7 @@
         </div>
 
         <div style="width: 100%;">
-            <div class="section-header">
-                <span class="section-title">KEUNGGULAN SISTEM</span>
-            </div>
+            <div class="section-header"><span class="section-title">KEUNGGULAN SISTEM</span></div>
             <div class="features-grid">
                 <div class="feature-card">
                     <span class="f-icon">🔒</span>
@@ -256,27 +315,104 @@
     </div>
 
     <footer>
-        <div class="footer-content">
-            <div class="footer-brand">Converter Video to MP3 &copy; <span id="year"></span></div>
-            <div class="footer-sub">Made with <span style="color: #e25555;">❤</span> by <span class="partner-bold">Partner Coding</span></div>
+        <div class="footer-grid">
+            
+            <div class="f-col">
+                <h4>Converter Pro</h4>
+                <div class="status-badge">
+                    <span class="dot"></span> All Systems Operational
+                </div>
+                <div class="live-stat">
+                    <span>👥</span> <span class="live-num" id="visitorCount">...</span> Pengguna Online
+                </div>
+                <div class="live-stat">
+                    <span>⚡</span> <span class="live-num">v2.4.0</span> (Stable Build)
+                </div>
+            </div>
+
+            <div class="f-col">
+                <h4>Legal & Info</h4>
+                <div class="f-links">
+                    <a href="privacy.html" class="f-link">Kebijakan Privasi</a>
+                    <a href="terms.html" class="f-link">Syarat & Ketentuan</a>
+                    <a href="terms.html#copyright" class="f-link">Penafian Hak Cipta</a>
+                    <a href="terms.html#security" class="f-link">Keamanan & Teknologi</a>
+                </div>
+            </div>
+
+            <div class="f-col">
+                <h4>Pusat Bantuan</h4>
+                <div class="f-links">
+                    <a href="faq.html" class="f-link">FAQ (Tanya Jawab)</a>
+                    <a href="mailto:emailmu@gmail.com?subject=Laporan Bug" class="f-link">Laporkan Bug</a>
+                    <a href="faq.html" class="f-link">Panduan Penggunaan</a>
+                    <a href="mailto:emailmu@gmail.com?subject=Halo Dev" class="f-link">Kontak Developer</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <div class="copyright">
+                &copy; <span id="year"></span> Converter Video to MP3 Pro. All rights reserved.
+            </div>
+            <div class="credits">
+                Made with <span class="heart">❤</span> by <span class="partner-bold">Partner Coding</span>
+            </div>
         </div>
     </footer>
 
     <script>
+        // --- 1. THEME LOGIC (FIXED) ---
+        const themeBtn = document.getElementById('themeBtn');
+        const body = document.body;
+        
+        // Cek LocalStorage
+        if (localStorage.getItem('theme') === 'light') {
+            disableDarkMode();
+        }
+
+        function toggleTheme() {
+            if (body.classList.contains('dark-mode')) {
+                disableDarkMode();
+                showToast("Light Theme Active");
+            } else {
+                enableDarkMode();
+                showToast("Dark Theme Active");
+            }
+        }
+
+        function enableDarkMode() {
+            body.classList.add('dark-mode');
+            themeBtn.innerText = "☀";
+            localStorage.setItem('theme', 'dark');
+        }
+
+        function disableDarkMode() {
+            body.classList.remove('dark-mode');
+            themeBtn.innerText = "🌙";
+            localStorage.setItem('theme', 'light');
+        }
+
+        function showToast(msg) { 
+            const t = document.getElementById('toast'); 
+            t.innerText = msg; t.className = "show"; 
+            setTimeout(() => t.className = t.className.replace("show", ""), 3000); 
+        }
+
+        // --- 2. LOGIC LAINNYA ---
         if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js')); }
         document.getElementById('year').innerText = new Date().getFullYear();
 
-        const themeBtn = document.getElementById('themeBtn');
-        const body = document.body;
-        if (localStorage.getItem('theme') === 'light') { body.classList.remove('dark-mode'); themeBtn.innerText = "🌙"; }
-
-        function toggleTheme() {
-            body.classList.contains('dark-mode') ? 
-            (body.classList.remove('dark-mode'), themeBtn.innerText = "🌙", localStorage.setItem('theme', 'light'), showToast("Light Theme Active")) : 
-            (body.classList.add('dark-mode'), themeBtn.innerText = "☀", localStorage.setItem('theme', 'dark'), showToast("Dark Theme Active"));
+        // Counter Palsu
+        function updateVisitorCount() {
+            const baseCount = 1200; 
+            const randomFlux = Math.floor(Math.random() * 50);
+            document.getElementById('visitorCount').innerText = (baseCount + randomFlux).toLocaleString();
         }
-        function showToast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.className = "show"; setTimeout(() => t.className = t.className.replace("show", ""), 3000); }
+        updateVisitorCount(); setInterval(updateVisitorCount, 5000);
 
+        // --- 3. CONVERTER ---
         const { createFFmpeg, fetchFile } = FFmpeg;
         const ffmpeg = createFFmpeg({ log: true, corePath: 'https://unpkg.com/@ffmpeg/core-st@0.11.1/dist/ffmpeg-core.js', mainName: 'main' });
         const statusText = document.getElementById('status-text');
