@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syarat & Ketentuan - Converter Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Plus+Jakarta+Sans:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-anim: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #141E30);
+            --glass-bg: rgba(20, 20, 20, 0.6); 
+            --glass-border: rgba(255, 255, 255, 0.1); 
+            --text-main: #f5f5f7;
+            --text-sub: #a1a1a6;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-anim); background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh; margin: 0; color: var(--text-main);
+            display: flex; justify-content: center; padding: 40px 20px;
+        }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        .doc-container {
+            background: var(--glass-bg); backdrop-filter: blur(40px);
+            border: 1px solid var(--glass-border); border-radius: 30px;
+            padding: 50px; max-width: 800px; width: 100%;
+        }
+        h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; margin-bottom: 30px; }
+        h3 { font-family: 'Plus Jakarta Sans', sans-serif; margin-top: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; color: #4facfe; }
+        p, li { font-size: 14px; line-height: 1.7; color: var(--text-sub); margin-bottom: 10px; }
+        .back-btn { text-decoration: none; color: var(--text-main); border: 1px solid var(--glass-border); padding: 8px 20px; border-radius: 50px; font-size: 13px; display: inline-block; margin-bottom: 30px; transition: 0.3s; }
+        .back-btn:hover { background: rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body>
+    <div class="doc-container">
+        <a href="index.html" class="back-btn">← Kembali</a>
+        <h1>Syarat & Ketentuan Penggunaan</h1>
+
+        <h3 id="terms">1. Penggunaan Wajar</h3>
+        <p>Dengan menggunakan Converter Video to MP3 Pro, Anda setuju untuk menggunakan layanan ini hanya untuk tujuan pribadi dan non-komersial. Anda dilarang menggunakan layanan ini untuk mendistribusikan materi yang melanggar hukum.</p>
+
+        <h3 id="copyright">2. Penafian Hak Cipta (Copyright)</h3>
+        <p>Aplikasi ini adalah alat konversi format file. Kami tidak menyimpan, mengindeks, atau menyediakan konten berhak cipta. <strong>Pengguna bertanggung jawab penuh</strong> atas file yang mereka konversi. Pastikan Anda memiliki izin atau hak atas video yang Anda ubah formatnya.</p>
+
+        <h3 id="security">3. Keamanan & Teknologi</h3>
+        <p>Layanan ini menggunakan teknologi <em>Client-Side WebAssembly</em>. Artinya:</p>
+        <ul>
+            <li>File Anda TIDAK PERNAH meninggalkan perangkat Anda.</li>
+            <li>Tidak ada risiko kebocoran data ke server cloud.</li>
+            <li>Proses konversi bergantung pada spesifikasi perangkat (RAM/CPU) Anda.</li>
+        </ul>
+
+        <h3>4. Perubahan Layanan</h3>
+        <p>Partner Coding berhak memperbarui sistem atau mengubah antarmuka aplikasi sewaktu-waktu untuk peningkatan performa tanpa pemberitahuan sebelumnya.</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kebijakan Privasi - Converter Pro</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-anim: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #141E30);
+            --glass-bg: rgba(20, 20, 20, 0.6); 
+            --glass-border: rgba(255, 255, 255, 0.1); 
+            --text-main: #f5f5f7;
+            --text-sub: #a1a1a6;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-anim); background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh; margin: 0; color: var(--text-main);
+            display: flex; justify-content: center; padding: 40px 20px;
+        }
+
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .privacy-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px; padding: 50px;
+            max-width: 800px; width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700; font-size: 28px; margin-bottom: 10px;
+        }
+
+        .last-updated { font-size: 12px; color: var(--text-sub); margin-bottom: 40px; display: block; }
+
+        h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 18px; margin-top: 30px; margin-bottom: 15px; color: #fff;
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;
+        }
+
+        p, ul {
+            font-size: 14px; line-height: 1.8; color: var(--text-sub); margin-bottom: 15px;
+        }
+
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+
+        .highlight { color: #4facfe; font-weight: 600; }
+
+        .back-btn {
+            display: inline-block; margin-top: 40px;
+            text-decoration: none; color: var(--text-main);
+            border: 1px solid var(--glass-border); padding: 10px 20px;
+            border-radius: 50px; font-size: 13px; transition: 0.3s;
+            background: rgba(255,255,255,0.05);
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.1); transform: translateX(-5px); }
+
+        @media (max-width: 600px) { .privacy-container { padding: 30px 20px; } }
+    </style>
+</head>
+<body>
+
+    <div class="privacy-container">
+        <a href="index.html" class="back-btn">← Kembali ke Aplikasi</a>
+        
+        <div style="height: 30px;"></div>
+
+        <h1>Kebijakan Privasi</h1>
+        <span class="last-updated">Terakhir Diperbarui: 2024</span>
+
+        <p>Terima kasih telah menggunakan <strong>Converter Video to MP3 Pro</strong>. Kami sangat menghargai privasi Anda. Dokumen ini menjelaskan bagaimana kami menangani data Anda dengan transparansi penuh.</p>
+
+        <h2>1. Tidak Ada Pengumpulan Data (No Server Upload)</h2>
+        <p>Ini adalah poin terpenting: <span class="highlight">Aplikasi ini beroperasi 100% secara lokal di perangkat Anda.</span></p>
+        <p>Saat Anda memilih file video untuk dikonversi:</p>
+        <ul>
+            <li>File tersebut <strong>TIDAK</strong> diunggah ke server kami.</li>
+            <li>File tersebut <strong>TIDAK</strong> dikirim ke cloud atau pihak ketiga.</li>
+            <li>Proses konversi terjadi di dalam memori browser (RAM) laptop atau smartphone Anda menggunakan teknologi WebAssembly.</li>
+        </ul>
+        <p>Setelah Anda menutup tab browser, semua data sementara akan hilang secara otomatis.</p>
+
+        <h2>2. Izin Perangkat</h2>
+        <p>Aplikasi ini mungkin meminta izin untuk membaca file penyimpanan Anda. Izin ini hanya digunakan untuk:</p>
+        <ul>
+            <li>Mengambil file video yang Anda pilih secara spesifik.</li>
+            <li>Menyimpan file MP3 hasil konversi kembali ke perangkat Anda.</li>
+        </ul>
+        <p>Kami tidak memiliki akses untuk membaca file lain selain yang Anda pilih.</p>
+
+        <h2>3. Cookie dan Penyimpanan Lokal</h2>
+        <p>Kami tidak menggunakan cookie pelacak (tracking cookies) untuk iklan. Kami hanya menggunakan penyimpanan lokal browser (Local Storage) untuk:</p>
+        <ul>
+            <li>Mengingat preferensi tema Anda (Mode Gelap/Terang).</li>
+        </ul>
+
+        <h2>4. Pihak Ketiga</h2>
+        <p>Aplikasi ini di-hosting menggunakan layanan penyedia statis (seperti Render/Netlify). Penyedia hosting mungkin mencatat log akses standar (seperti Alamat IP dan jenis browser) untuk keperluan keamanan teknis dan pencegahan DDoS, namun mereka tidak memiliki akses ke konten file video Anda.</p>
+
+        <h2>5. Hubungi Kami</h2>
+        <p>Jika Anda memiliki pertanyaan teknis mengenai cara kerja keamanan aplikasi ini, silakan hubungi pengembang melalui:</p>
+        <p>Partner Coding (partnercoding@example.com)</p>
+
+        <div style="height: 20px;"></div>
+        <p style="font-size: 12px; opacity: 0.5;">Dibuat dengan transparan demi keamanan Anda.</p>
+    </div>
+
+</body>
+</html>

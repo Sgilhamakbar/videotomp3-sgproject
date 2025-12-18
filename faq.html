@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Pusat Bantuan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Plus+Jakarta+Sans:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-anim: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #141E30);
+            --glass-bg: rgba(20, 20, 20, 0.6); 
+            --glass-border: rgba(255, 255, 255, 0.1); 
+            --text-main: #f5f5f7;
+            --text-sub: #a1a1a6;
+            --accent: #0071e3;
+        }
+        body {
+            font-family: 'Inter', sans-serif; background: var(--bg-anim); background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite; min-height: 100vh; margin: 0; color: var(--text-main);
+            display: flex; justify-content: center; padding: 40px 20px;
+        }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        .faq-container {
+            background: var(--glass-bg); backdrop-filter: blur(40px);
+            border: 1px solid var(--glass-border); border-radius: 30px;
+            padding: 40px; max-width: 700px; width: 100%;
+        }
+        h1 { font-family: 'Plus Jakarta Sans', sans-serif; text-align: center; margin-bottom: 40px; }
+        
+        /* Accordion Style */
+        .faq-item { border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px; }
+        .faq-question {
+            width: 100%; text-align: left; background: none; border: none;
+            padding: 20px 0; color: var(--text-main); font-size: 16px; font-weight: 600;
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+        }
+        .faq-answer {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;
+            color: var(--text-sub); font-size: 14px; line-height: 1.6;
+        }
+        .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 20px; }
+        .icon-plus { transition: 0.3s; }
+        .faq-item.active .icon-plus { transform: rotate(45deg); color: var(--accent); }
+        
+        .back-btn { text-decoration: none; color: var(--text-main); display: block; text-align: center; margin-bottom: 20px; opacity: 0.7; }
+    </style>
+</head>
+<body>
+    <div class="faq-container">
+        <a href="index.html" class="back-btn">← Kembali ke Beranda</a>
+        <h1>Pertanyaan Umum (FAQ)</h1>
+
+        <div class="faq-item">
+            <button class="faq-question">Apakah aplikasi ini gratis? <span class="icon-plus">+</span></button>
+            <div class="faq-answer">Ya, 100% gratis. Kami tidak memungut biaya apapun dan tidak ada batasan jumlah konversi harian.</div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Di mana file hasil download tersimpan? <span class="icon-plus">+</span></button>
+            <div class="faq-answer">File MP3 akan tersimpan di folder "Downloads" atau "Unduhan" di HP/Laptop Anda, sesuai pengaturan browser masing-masing.</div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Kenapa prosesnya cepat sekali? <span class="icon-plus">+</span></button>
+            <div class="faq-answer">Karena kami tidak mengupload video Anda ke internet. Semua proses terjadi langsung di dalam chip prosesor HP/Laptop Anda.</div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Apakah support iPhone? <span class="icon-plus">+</span></button>
+            <div class="faq-answer">Ya! Aplikasi ini berjalan lancar di Safari (iOS), Chrome (Android), Windows, dan MacOS.</div>
+        </div>
+
+    </div>
+
+    <script>
+        // Script untuk animasi buka tutup (Accordion)
+        const items = document.querySelectorAll('.faq-item');
+        items.forEach(item => {
+            item.querySelector('.faq-question').addEventListener('click', () => {
+                // Tutup yang lain dulu (opsional, biar rapi)
+                items.forEach(i => { if(i !== item) i.classList.remove('active'); });
+                // Toggle yang diklik
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
