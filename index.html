@@ -3,17 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://videotomp3-sgproject.onrender.com/">
-    <meta property="og:title" content="Converter Video to MP3 Pro">
-    <meta property="og:description" content="Ubah video ke MP3 dalam hitungan detik. Gratis, Aman, Tanpa Upload Server.">
-    <meta property="og:image" content="https://videotomp3-sgproject.onrender.com/icon-512.png">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Converter Video to MP3 Pro">
-    <meta name="twitter:description" content="Konversi video ke audio langsung di browser. Cepat & Hemat Kuota.">
-    <meta name="twitter:image" content="https://videotomp3-sgproject.onrender.com/icon-512.png">
     
     <title>Converter Video to MP3 - Gratis, Cepat, Aman</title>
     <meta name="description" content="Ubah video ke MP3 secara instan tanpa upload file. Konverter aman yang berjalan di browser Anda. Gratis, tanpa batasan, dan bisa offline.">
@@ -21,6 +10,10 @@
     <meta name="author" content="Partner Coding">
     <meta name="theme-color" content="#1a1a1a">
 
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Converter Video to MP3 Pro">
+    <meta property="og:description" content="Ubah video ke MP3 dalam hitungan detik. Gratis, Aman, Tanpa Upload Server.">
+    
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon-192.png">
     <link rel="apple-touch-icon" href="icon-192.png">
@@ -32,27 +25,33 @@
     <style>
         /* --- CONFIG VARIABLES --- */
         :root {
-            --bg-anim: linear-gradient(-45deg, #eef2f3, #dbe6f6, #eef2f3, #e0eafc);
-            --glass-bg: rgba(255, 255, 255, 0.85); /* Lebih solid dikit biar kontras */
-            --glass-border: rgba(255, 255, 255, 0.9);
-            --text-main: #0f0f10; /* Lebih hitam */
-            --text-sub: #4a4a4a; /* Lebih gelap dari sebelumnya (6e6e73) untuk kontras */
-            --input-bg: rgba(255, 255, 255, 0.7);
+            /* LIGHT MODE (Dipertegas agar border terlihat) */
+            --bg-anim: linear-gradient(-45deg, #e0eafc, #cfdef3, #e2ebf0, #e6e9f0);
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            /* BORDER MENJADI ABU-ABU TIPIS AGAR KELIHATAN DI LIGHT MODE */
+            --glass-border: rgba(0, 0, 0, 0.08); 
+            --text-main: #0f0f10;
+            --text-sub: #4a4a4a;
+            --input-bg: rgba(255, 255, 255, 0.5);
             --btn-bg: #0071e3;
             --btn-text: #ffffff;
             --section-header: #1d1d1f;
             --step-badge-bg: #1d1d1f;
             --step-badge-text: #fff;
             --inverse-text: #ffffff;
-            --footer-bg: rgba(255, 255, 255, 0.5);
+            --footer-bg: rgba(255, 255, 255, 0.4);
+            --history-bg: rgba(255, 255, 255, 0.6);
+            --accent-glow: rgba(0, 113, 227, 0.5);
         }
 
         body.dark-mode {
+            /* DARK MODE */
             --bg-anim: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #141E30);
             --glass-bg: rgba(20, 20, 20, 0.75); 
+            /* BORDER PUTIH TIPIS DI DARK MODE */
             --glass-border: rgba(255, 255, 255, 0.15); 
             --text-main: #ffffff;
-            --text-sub: #d1d1d6; /* Lebih terang untuk dark mode */
+            --text-sub: #d1d1d6;
             --input-bg: rgba(0, 0, 0, 0.4);
             --btn-bg: rgba(255, 255, 255, 0.15);
             --btn-text: #ffffff;
@@ -61,6 +60,8 @@
             --step-badge-text: #000;
             --inverse-text: #000000;
             --footer-bg: rgba(0, 0, 0, 0.3);
+            --history-bg: rgba(255, 255, 255, 0.05);
+            --accent-glow: rgba(255, 255, 255, 0.3);
         }
 
         /* RESET & BASE */
@@ -75,19 +76,15 @@
             transition: background 0.5s ease, color 0.5s ease;
         }
 
-        /* MENINGKATKAN AKSESIBILITAS LINK */
         a { color: inherit; }
-        a:focus, button:focus, input:focus {
-            outline: 2px solid #0071e3;
-            outline-offset: 2px;
-        }
+        a:focus, button:focus, input:focus { outline: 2px solid #0071e3; outline-offset: 2px; }
 
         @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         /* THEME TOGGLE */
         .theme-toggle { 
             position: fixed; top: 20px; right: 20px; 
-            width: 48px; height: 48px; min-width: 48px; min-height: 48px; /* Diperbesar dikit buat jari */
+            width: 48px; height: 48px; min-width: 48px; min-height: 48px;
             background: var(--glass-bg); 
             border: 1px solid var(--glass-border); 
             border-radius: 50%; cursor: pointer; font-size: 20px; 
@@ -97,14 +94,21 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             transition: 0.3s;
         }
-        .theme-toggle:hover { transform: scale(1.1); }
-        .theme-toggle:active { transform: scale(0.9); }
+        .theme-toggle:hover { transform: scale(1.1); border-color: var(--accent-glow); }
 
         /* MAIN LAYOUT */
         .page-wrapper {
             flex: 1; display: flex; flex-direction: column; align-items: center;
             padding: 80px 20px 40px 20px; 
-            gap: 70px; max-width: 1000px; margin: 0 auto; width: 100%;
+            gap: 50px; max-width: 1000px; margin: 0 auto; width: 100%;
+        }
+
+        /* --- HOVER ANIMATION CLASS --- */
+        .hover-anim { transition: all 0.3s ease; }
+        .hover-anim:hover {
+            border-color: var(--accent-glow);
+            box-shadow: 0 10px 30px rgba(0, 113, 227, 0.15);
+            transform: translateY(-2px);
         }
 
         /* HERO CARD */
@@ -112,24 +116,38 @@
             background: var(--glass-bg);
             backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
             border: 1px solid var(--glass-border);
-            border-radius: 30px; padding: 40px;
-            width: 100%; max-width: 450px; text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            position: relative; z-index: 2; transition: 0.5s;
+            border-radius: 30px; padding: 45px;
+            width: 100%; max-width: 550px; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05); /* Shadow diperhalus */
+            position: relative; z-index: 2;
         }
         
         h1 {
-            font-weight: 800; font-size: 26px; margin: 0; letter-spacing: -0.5px;
+            font-weight: 800; font-size: 28px; margin: 0; letter-spacing: -0.5px;
             background: linear-gradient(135deg, var(--text-main) 30%, var(--text-sub));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            /* Fallback untuk browser lama */
             color: var(--text-main);
         }
-        .subtitle { color: var(--text-sub); font-size: 15px; margin-top: 8px; margin-bottom: 30px; line-height: 1.5; }
-        .icon-3d { font-size: 50px; margin-bottom: 15px; display: inline-block; animation: floatIcon 4s ease-in-out infinite; }
+        .subtitle { color: var(--text-sub); font-size: 15px; margin-top: 8px; margin-bottom: 20px; line-height: 1.5; }
+        
+        .file-info-group { margin-bottom: 20px; }
+        .file-info {
+            font-size: 12px; color: var(--text-sub); 
+            padding: 6px 12px; border-radius: 8px; background: rgba(128,128,128,0.1);
+            display: inline-block; font-weight: 500; margin-bottom: 5px;
+        }
+        .format-support { font-size: 11px; color: var(--text-sub); opacity: 0.8; }
+
+        .selected-file-display {
+            font-size: 13px; color: #0071e3; margin-bottom: 20px;
+            font-weight: 600; display: none; 
+            background: rgba(0, 113, 227, 0.1); padding: 10px; border-radius: 10px;
+        }
+
+        .icon-3d { font-size: 55px; margin-bottom: 15px; display: inline-block; animation: floatIcon 4s ease-in-out infinite; }
         @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-        /* INPUT GLOW */
+        /* INPUT */
         .input-glass { 
             background: var(--input-bg); 
             border: 1px solid var(--glass-border); 
@@ -137,42 +155,70 @@
             animation: glowPulse 3s infinite alternate;
         }
         @keyframes glowPulse {
-            0% { border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 0 5px rgba(0, 113, 227, 0.0); }
-            100% { border-color: #0071e3; box-shadow: 0 0 20px rgba(0, 113, 227, 0.4); }
+            0% { border-color: var(--glass-border); }
+            100% { border-color: var(--accent-glow); }
         }
 
-        /* Label for accessibility (Hidden visually but readable by screen readers) */
-        .sr-only {
-            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
-        }
-
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0; }
         input[type="file"] { width: 100%; color: var(--text-sub); font-size: 13px; }
         input[type="file"]::file-selector-button {
-            border: none; background: rgba(128, 128, 128, 0.2); color: var(--text-main);
+            border: none; background: rgba(128, 128, 128, 0.15); color: var(--text-main);
             font-weight: 600; padding: 8px 16px; border-radius: 8px; margin-right: 15px; cursor: pointer;
         }
 
         .btn-glass {
             background: var(--btn-bg); color: var(--btn-text); border: 1px solid rgba(255,255,255,0.1);
-            padding: 16px; border-radius: 50px; font-size: 16px; font-weight: 600; cursor: pointer;
-            width: 100%; backdrop-filter: blur(10px); transition: 0.3s;
+            padding: 18px; border-radius: 50px; font-size: 16px; font-weight: 700; cursor: pointer;
+            width: 100%; backdrop-filter: blur(10px); transition: 0.3s; letter-spacing: 0.5px;
         }
-        .btn-glass:hover { transform: scale(1.02); filter: brightness(1.1); }
+        .btn-glass:hover { transform: scale(1.02); filter: brightness(1.1); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .btn-glass:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+        /* --- HISTORY SECTION --- */
+        .history-container {
+            width: 100%; max-width: 650px;
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 30px;
+            display: none;
+        }
+        .history-container.active { display: block; animation: slideUp 0.5s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .history-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px; margin-bottom: 10px;
+            background: var(--history-bg); border-radius: 14px;
+            border: 1px solid var(--glass-border); /* Gunakan glass border agar terlihat */
+            transition: 0.3s;
+        }
+        
+        .h-info { text-align: left; }
+        .h-name { font-size: 14px; font-weight: 600; color: var(--text-main); max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .h-meta { font-size: 11px; color: var(--text-sub); margin-top: 3px; }
+        .h-actions { display: flex; gap: 8px; }
+        
+        .h-btn {
+            padding: 8px 12px; border-radius: 10px; font-size: 12px; font-weight: 600;
+            cursor: pointer; text-decoration: none; border: none; display: flex; align-items: center; justify-content: center;
+            transition: 0.2s;
+        }
+        .h-btn:hover { transform: scale(1.1); }
+        .h-dl { background: #30d158; color: #fff; }
+        .h-sh { background: rgba(128,128,128,0.15); color: var(--text-main); }
+        .h-del { background: rgba(255, 59, 48, 0.15); color: #ff3b30; } /* Merah Muda */
 
         /* --- SECTIONS --- */
-        .section-header { text-align: center; margin-bottom: 30px; position: relative; width: 100%; }
+        .section-header { text-align: center; margin-bottom: 30px; width: 100%; }
         .section-title {
             font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
             color: var(--section-header); border-bottom: 2px solid var(--text-sub);
             padding-bottom: 5px; display: inline-block;
         }
 
-        /* GRID & CARDS */
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; width: 100%; }
         .feature-card {
             background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
-            padding: 25px; border-radius: 20px; text-align: left; transition: 0.5s;
+            padding: 25px; border-radius: 20px; text-align: left;
         }
         .f-icon { font-size: 24px; margin-bottom: 12px; display: block; }
         .f-title { font-weight: 700; font-size: 15px; margin-bottom: 6px; color: var(--text-main); }
@@ -182,7 +228,7 @@
         .step-item {
             flex: 1; min-width: 250px;
             background: var(--glass-bg); border: 1px solid var(--glass-border);
-            padding: 25px 20px; border-radius: 18px; transition: 0.5s;
+            padding: 25px 20px; border-radius: 18px;
             display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
         }
         .step-badge {
@@ -205,17 +251,9 @@
             grid-template-columns: repeat(3, 1fr); gap: 40px;
             text-align: left; margin-bottom: 40px;
         }
-
-        .f-col h4 {
-            font-size: 13px; font-weight: 800; color: var(--text-main);
-            margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;
-        }
-
+        .f-col h4 { font-size: 13px; font-weight: 800; color: var(--text-main); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
         .f-links { display: flex; flex-direction: column; gap: 12px; }
-        .f-link {
-            font-size: 13px; color: var(--text-sub); text-decoration: none; transition: 0.3s;
-            font-weight: 500; display: block;
-        }
+        .f-link { font-size: 13px; color: var(--text-sub); text-decoration: none; transition: 0.3s; font-weight: 500; display: block; }
         .f-link:hover { color: #0071e3; transform: translateX(5px); }
 
         .status-badge {
@@ -226,7 +264,6 @@
         }
         .dot { width: 8px; height: 8px; background: #30d158; border-radius: 50%; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-        
         .live-stat { font-size: 12px; color: var(--text-sub); display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
         .live-num { font-weight: 700; color: var(--text-main); }
 
@@ -263,20 +300,30 @@
 <body class="dark-mode">
 
     <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" aria-label="Ganti Tema">☀</button>
-    
     <div id="toast" role="alert">Notifikasi</div>
 
     <div class="page-wrapper">
         
-        <main class="glass-card">
+        <main class="glass-card hover-anim">
             <div class="icon-3d" aria-hidden="true">💿</div>
             <h1>Converter Video to MP3</h1>
             <p class="subtitle">Ubah video ke audio tanpa upload. Aman & Privat.</p>
 
-            <div class="input-glass">
-                <label for="uploader" class="sr-only">Pilih File Video</label>
-                <input type="file" id="uploader" accept="video/*" aria-label="Upload Video">
+            <div class="file-info-group">
+                <div class="file-info">
+                    ℹ️ Maksimal Ukuran File: <strong>2 GB</strong>
+                </div>
+                <div class="format-support">
+                    ✅ Mendukung: MP4, MKV, AVI, MOV, FLV, WEBM
+                </div>
             </div>
+
+            <div class="input-glass hover-anim">
+                <label for="uploader" class="sr-only">Pilih File Video</label>
+                <input type="file" id="uploader" accept="video/*" aria-label="Upload Video" onchange="handleFileSelect()">
+            </div>
+
+            <div id="selectedFileDisplay" class="selected-file-display"></div>
 
             <button id="convertBtn" class="btn-glass" onclick="convert()">Konversi File</button>
 
@@ -285,18 +332,27 @@
             <div id="output-area"></div>
         </main>
 
+        <div id="historySection" class="history-container hover-anim">
+            <div class="section-title" style="margin-bottom: 20px; border: none; font-size: 14px;">RIWAYAT KONVERSI</div>
+            <div id="historyList">
+                </div>
+            <div style="text-align: center; margin-top: 15px;">
+                <button onclick="clearAllHistory()" style="background: none; border: none; color: var(--text-sub); font-size: 11px; cursor: pointer;">Hapus Semua Riwayat</button>
+            </div>
+        </div>
+
         <section style="width: 100%;">
             <div class="section-header"><span class="section-title">CARA PENGGUNAAN</span></div>
             <div class="steps-container">
-                <div class="step-item">
+                <div class="step-item hover-anim">
                     <span class="step-badge">LANGKAH 01</span>
                     <span class="step-text">Pilih file video yang ingin diubah dari galeri HP atau Laptop.</span>
                 </div>
-                <div class="step-item">
+                <div class="step-item hover-anim">
                     <span class="step-badge">LANGKAH 02</span>
                     <span class="step-text">Klik tombol konversi dan tunggu proses ekstraksi audio.</span>
                 </div>
-                <div class="step-item">
+                <div class="step-item hover-anim">
                     <span class="step-badge">LANGKAH 03</span>
                     <span class="step-text">Unduh file MP3 hasilnya atau bagikan langsung.</span>
                 </div>
@@ -306,17 +362,17 @@
         <section style="width: 100%;">
             <div class="section-header"><span class="section-title">KEUNGGULAN SISTEM</span></div>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card hover-anim">
                     <span class="f-icon" aria-hidden="true">🔒</span>
                     <div class="f-title">PRIVASI TOTAL</div>
                     <div class="f-desc">File diproses di RAM perangkatmu. Tidak ada data yang dikirim ke server luar.</div>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card hover-anim">
                     <span class="f-icon" aria-hidden="true">⚡</span>
                     <div class="f-title">PERFORMA LOKAL</div>
                     <div class="f-desc">Menggunakan teknologi WebAssembly untuk kecepatan setara aplikasi desktop.</div>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card hover-anim">
                     <span class="f-icon" aria-hidden="true">📱</span>
                     <div class="f-title">PWA READY</div>
                     <div class="f-desc">Instal sebagai aplikasi di Android & iOS. Bisa berjalan tanpa internet.</div>
@@ -328,20 +384,12 @@
 
     <footer>
         <div class="footer-grid">
-            
             <div class="f-col">
                 <h4>Converter Pro</h4>
-                <div class="status-badge">
-                    <span class="dot"></span> All Systems Operational
-                </div>
-                <div class="live-stat">
-                    <span aria-hidden="true">👥</span> <span class="live-num" id="visitorCount">...</span> Pengguna Online
-                </div>
-                <div class="live-stat">
-                    <span aria-hidden="true">⚡</span> <span class="live-num">v2.4.0</span> (Stable Build)
-                </div>
+                <div class="status-badge"><span class="dot"></span> All Systems Operational</div>
+                <div class="live-stat"><span aria-hidden="true">👥</span> <span class="live-num" id="visitorCount">...</span> Pengguna Online</div>
+                <div class="live-stat"><span aria-hidden="true">⚡</span> <span class="live-num">v2.4.2</span> (Stable Build)</div>
             </div>
-
             <div class="f-col">
                 <h4>Legal & Info</h4>
                 <div class="f-links">
@@ -351,7 +399,6 @@
                     <a href="terms.html#security" class="f-link">Keamanan & Teknologi</a>
                 </div>
             </div>
-
             <div class="f-col">
                 <h4>Pusat Bantuan</h4>
                 <div class="f-links">
@@ -361,70 +408,63 @@
                     <a href="mailto:emailmu@gmail.com?subject=Halo Dev" class="f-link">Kontak Developer</a>
                 </div>
             </div>
-
         </div>
-
         <div class="footer-bottom">
-            <div class="copyright">
-                &copy; <span id="year"></span> Converter Video to MP3 Pro. All rights reserved.
-            </div>
-            <div class="credits">
-                Made with <span class="heart" aria-hidden="true">❤</span> by <span class="partner-bold">Partner Coding</span>
-            </div>
+            <div class="copyright">&copy; <span id="year"></span> Converter Video to MP3 Pro. All rights reserved.</div>
+            <div class="credits">Made with <span class="heart" aria-hidden="true">❤</span> by <span class="partner-bold">Partner Coding</span></div>
         </div>
     </footer>
 
     <script>
-        // LOGIKA THEME (Fixed & Smooth)
+        // THEME LOGIC
         const themeBtn = document.getElementById('themeBtn');
         const body = document.body;
-        
         if (localStorage.getItem('theme') === 'light') { disableDarkMode(); }
+        function toggleTheme() { body.classList.contains('dark-mode') ? (disableDarkMode(), showToast("Light Theme Active")) : (enableDarkMode(), showToast("Dark Theme Active")); }
+        function enableDarkMode() { body.classList.add('dark-mode'); themeBtn.innerText = "☀"; localStorage.setItem('theme', 'dark'); }
+        function disableDarkMode() { body.classList.remove('dark-mode'); themeBtn.innerText = "🌙"; localStorage.setItem('theme', 'light'); }
+        function showToast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.className = "show"; setTimeout(() => t.className = t.className.replace("show", ""), 3000); }
 
-        function toggleTheme() {
-            body.classList.contains('dark-mode') ? 
-            (disableDarkMode(), showToast("Light Theme Active")) : 
-            (enableDarkMode(), showToast("Dark Theme Active"));
-        }
-
-        function enableDarkMode() {
-            body.classList.add('dark-mode');
-            themeBtn.innerText = "☀";
-            localStorage.setItem('theme', 'dark');
-        }
-
-        function disableDarkMode() {
-            body.classList.remove('dark-mode');
-            themeBtn.innerText = "🌙";
-            localStorage.setItem('theme', 'light');
-        }
-
-        function showToast(msg) { 
-            const t = document.getElementById('toast'); 
-            t.innerText = msg; t.className = "show"; 
-            setTimeout(() => t.className = t.className.replace("show", ""), 3000); 
-        }
-
-        // LOGIKA LAINNYA
+        // OTHER LOGIC
         if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js')); }
         document.getElementById('year').innerText = new Date().getFullYear();
-
-        // Counter Realistis (10-20)
-        function updateVisitorCount() {
-            const min = 10, max = 20;
-            const total = Math.floor(Math.random() * (max - min + 1)) + min;
-            document.getElementById('visitorCount').innerText = total;
-        }
+        function updateVisitorCount() { const min = 10, max = 20; const total = Math.floor(Math.random() * (max - min + 1)) + min; document.getElementById('visitorCount').innerText = total; }
         updateVisitorCount(); setInterval(updateVisitorCount, 5000);
 
-        // CONVERTER LOGIC
+        // --- CONVERTER LOGIC ---
         const { createFFmpeg, fetchFile } = FFmpeg;
-        const ffmpeg = createFFmpeg({ log: true, corePath: 'https://unpkg.com/@ffmpeg/core-st@0.11.1/dist/ffmpeg-core.js', mainName: 'main' });
+        let ffmpeg = null;
+        let finalMp3Blob = null; 
+
+        const initFFmpeg = () => {
+            if (ffmpeg === null) {
+                ffmpeg = createFFmpeg({ log: true, corePath: 'https://unpkg.com/@ffmpeg/core-st@0.11.1/dist/ffmpeg-core.js', mainName: 'main' });
+            }
+        }
+
         const statusText = document.getElementById('status-text');
         const outputArea = document.getElementById('output-area');
         const convertBtn = document.getElementById('convertBtn');
         const loader = document.getElementById('loader');
-        let finalMp3Blob = null;
+        
+        function handleFileSelect() {
+            const file = document.getElementById('uploader').files[0];
+            const display = document.getElementById('selectedFileDisplay');
+            if (file) {
+                const maxSize = 2 * 1024 * 1024 * 1024; 
+                if (file.size > maxSize) {
+                    alert("⚠️ File terlalu besar! Maksimal 2GB.");
+                    document.getElementById('uploader').value = "";
+                    display.style.display = 'none';
+                    return;
+                }
+                const sizeMB = (file.size / (1024 * 1024)).toFixed(2) + " MB";
+                display.innerText = `📂 ${file.name} (${sizeMB})`;
+                display.style.display = 'block';
+            } else {
+                display.style.display = 'none';
+            }
+        }
 
         const convert = async () => {
             const uploader = document.getElementById('uploader');
@@ -433,38 +473,106 @@
             if (files.length === 0) { showToast("⚠️ Pilih file dulu"); return; }
             if (!files[0].type.startsWith('video/')) { showToast("⛔ Bukan video!"); return; }
             
-            statusText.innerText = "Processing..."; outputArea.innerHTML = "";
+            statusText.innerText = "Menyiapkan mesin..."; 
+            outputArea.innerHTML = "";
             convertBtn.disabled = true; convertBtn.style.opacity = "0.5"; loader.style.display = "block";
 
             try {
+                initFFmpeg();
                 if (!ffmpeg.isLoaded()) await ffmpeg.load();
+
+                statusText.innerText = "Memproses video... (Jangan tutup tab)";
+                const fileName = files[0].name;
+
                 ffmpeg.FS('writeFile', 'input', await fetchFile(files[0]));
                 await ffmpeg.run('-i', 'input', 'output.mp3');
                 
                 const data = ffmpeg.FS('readFile', 'output.mp3');
+                try { ffmpeg.FS('unlink', 'input'); ffmpeg.FS('unlink', 'output.mp3'); } catch(e) { console.log(e); }
+
                 finalMp3Blob = new Blob([data.buffer], { type: 'audio/mp3' });
                 const url = URL.createObjectURL(finalMp3Blob);
+                const mp3SizeMB = (finalMp3Blob.size / (1024 * 1024)).toFixed(2) + " MB";
                 
+                addToHistory(fileName, mp3SizeMB, url);
+
                 outputArea.innerHTML = `
                     <div class="success-holo">
                         <div style="font-weight:600; margin-bottom:5px">Selesai</div>
                         <div class="action-row">
-                            <a href="${url}" download="Audio.mp3" class="mini-btn dl-btn">⬇ Download MP3</a>
+                            <a href="${url}" download="${fileName.replace(/\.[^/.]+$/, "")}.mp3" class="mini-btn dl-btn">⬇ Simpan</a>
                             <button onclick="shareFile()" class="mini-btn sh-btn" id="shareBtn" aria-label="Share File">🔗 Share</button>
                         </div>
                     </div>`;
-                loader.style.display = "none"; statusText.innerText = "";
+                
                 if (!navigator.canShare) document.getElementById('shareBtn').style.display = 'none';
+                statusText.innerText = "";
+                try { ffmpeg.exit(); ffmpeg = null; } catch(e) { console.log(e); }
+
             } catch (e) {
-                console.error(e); loader.style.display = "none"; statusText.innerText = "Gagal.";
+                console.error(e); 
+                statusText.innerText = "Terjadi kesalahan. Coba refresh halaman.";
+                if(e.message && !e.message.includes("exit(0)")) { alert("Gagal memproses."); }
+                ffmpeg = null;
             }
+            loader.style.display = "none";
             convertBtn.disabled = false; convertBtn.style.opacity = "1";
         };
 
         async function shareFile() {
             if (!finalMp3Blob) return;
             const file = new File([finalMp3Blob], "audio.mp3", { type: "audio/mp3" });
-            if (navigator.canShare) navigator.share({ files: [file], title: 'Audio' });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                try { await navigator.share({ files: [file], title: 'Audio MP3', text: 'Convert by Converter Pro' }); } catch (err) {}
+            }
+        }
+
+        // --- HISTORY LOGIC (DENGAN TOMBOL HAPUS SATU-SATU) ---
+        function addToHistory(name, size, url) {
+            const container = document.getElementById('historySection');
+            const list = document.getElementById('historyList');
+            container.classList.add('active');
+            const mp3Name = name.replace(/\.[^/.]+$/, "") + ".mp3";
+            const item = document.createElement('div');
+            item.className = 'history-item hover-anim'; 
+            
+            item.innerHTML = `
+                <div class="h-info"><div class="h-name">${mp3Name}</div><div class="h-meta">MP3 Size: ${size}</div></div>
+                <div class="h-actions">
+                    <a href="${url}" download="${mp3Name}" class="h-btn h-dl" title="Download">⬇</a>
+                    <button onclick="shareHistoryUrl('${url}', '${mp3Name}')" class="h-btn h-sh" title="Share">🔗</button>
+                    <button onclick="deleteHistoryItem(this)" class="h-btn h-del" title="Hapus Item">✕</button>
+                </div>`;
+            list.prepend(item);
+        }
+
+        async function shareHistoryUrl(blobUrl, fileName) {
+            try {
+                const response = await fetch(blobUrl);
+                const blob = await response.blob();
+                const file = new File([blob], fileName, { type: "audio/mp3" });
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({ files: [file], title: fileName });
+                } else { alert("Browser tidak mendukung share fitur ini."); }
+            } catch (e) { alert("File kadaluwarsa."); }
+        }
+
+        // Fungsi Hapus Satu Item
+        function deleteHistoryItem(btn) {
+            const item = btn.closest('.history-item');
+            item.remove();
+            
+            // Cek jika habis, sembunyikan container
+            const list = document.getElementById('historyList');
+            if (list.children.length === 0) {
+                document.getElementById('historySection').classList.remove('active');
+            }
+        }
+
+        // Fungsi Hapus Semua
+        function clearAllHistory() { 
+            document.getElementById('historyList').innerHTML = ""; 
+            document.getElementById('historySection').classList.remove('active'); 
         }
     </script>
 </body>
