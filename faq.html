@@ -3,87 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - Pusat Bantuan</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Plus+Jakarta+Sans:wght@500;700&display=swap" rel="stylesheet">
+    <title>Pusat Bantuan & FAQ - Converter Pro</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --bg-anim: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #141E30);
-            --glass-bg: rgba(20, 20, 20, 0.6); 
-            --glass-border: rgba(255, 255, 255, 0.1); 
-            --text-main: #f5f5f7;
-            --text-sub: #a1a1a6;
+            --glass-bg: rgba(20, 20, 20, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-main: #ffffff;
+            --text-sub: #d1d1d6;
             --accent: #0071e3;
+            --card-bg: rgba(255, 255, 255, 0.05);
         }
+
         body {
-            font-family: 'Inter', sans-serif; background: var(--bg-anim); background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite; min-height: 100vh; margin: 0; color: var(--text-main);
-            display: flex; justify-content: center; padding: 40px 20px;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-anim); background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-main); line-height: 1.6; margin: 0; padding: 0;
         }
         @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .container { max-width: 800px; margin: 40px auto; padding: 20px; }
         
-        .faq-container {
-            background: var(--glass-bg); backdrop-filter: blur(40px);
-            border: 1px solid var(--glass-border); border-radius: 30px;
-            padding: 40px; max-width: 700px; width: 100%;
+        .help-card {
+            background: var(--glass-bg); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 20px;
+            padding: 40px; margin-bottom: 40px;
         }
-        h1 { font-family: 'Plus Jakarta Sans', sans-serif; text-align: center; margin-bottom: 40px; }
+
+        h1 { font-size: 28px; border-bottom: 1px solid var(--glass-border); padding-bottom: 20px; margin-bottom: 30px; }
+        h2 { color: var(--accent); margin-top: 40px; font-size: 20px; margin-bottom: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
         
-        /* Accordion Style */
-        .faq-item { border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px; }
-        .faq-question {
-            width: 100%; text-align: left; background: none; border: none;
-            padding: 20px 0; color: var(--text-main); font-size: 16px; font-weight: 600;
-            cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+        /* Gaya Khusus Panduan */
+        .step-box {
+            background: var(--card-bg); border: 1px solid var(--glass-border);
+            padding: 20px; border-radius: 12px; margin-bottom: 15px;
+            display: flex; gap: 15px; align-items: flex-start;
         }
-        .faq-answer {
-            max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;
-            color: var(--text-sub); font-size: 14px; line-height: 1.6;
+        .step-num { 
+            background: var(--accent); color: white; width: 30px; height: 30px; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            font-weight: bold; flex-shrink: 0;
         }
-        .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 20px; }
-        .icon-plus { transition: 0.3s; }
-        .faq-item.active .icon-plus { transform: rotate(45deg); color: var(--accent); }
-        
-        .back-btn { text-decoration: none; color: var(--text-main); display: block; text-align: center; margin-bottom: 20px; opacity: 0.7; }
+        .step-content h3 { margin: 0 0 5px 0; font-size: 16px; color: var(--text-main); }
+        .step-content p { margin: 0; font-size: 14px; color: var(--text-sub); }
+
+        /* Gaya Khusus FAQ */
+        .faq-item { margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px; }
+        .faq-q { font-weight: 600; font-size: 16px; margin-bottom: 8px; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        .faq-q::before { content: 'Q.'; color: var(--accent); font-weight: 800; }
+        .faq-a { font-size: 14px; color: var(--text-sub); padding-left: 25px; }
+
+        .back-btn {
+            display: inline-block; text-decoration: none; color: var(--text-main);
+            background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 50px;
+            font-weight: 600; margin-bottom: 20px; border: 1px solid var(--glass-border);
+            transition: 0.3s;
+        }
+        .back-btn:hover { background: var(--accent); border-color: var(--accent); }
+
+        /* Anchor offset fix */
+        section { scroll-margin-top: 80px; }
     </style>
 </head>
 <body>
-    <div class="faq-container">
-        <a href="index.html" class="back-btn">← Kembali ke Beranda</a>
-        <h1>Pertanyaan Umum (FAQ)</h1>
 
-        <div class="faq-item">
-            <button class="faq-question">Apakah aplikasi ini gratis? <span class="icon-plus">+</span></button>
-            <div class="faq-answer">Ya, 100% gratis. Kami tidak memungut biaya apapun dan tidak ada batasan jumlah konversi harian.</div>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Kembali ke Halaman Utama</a>
+
+        <div class="help-card">
+            <h1>Pusat Bantuan & FAQ</h1>
+
+            <section id="guide">
+                <h2>📖 Panduan Penggunaan Lengkap</h2>
+                <p style="color: var(--text-sub); margin-bottom: 20px;">Ikuti langkah-langkah berikut untuk memastikan hasil audio terbaik.</p>
+
+                <div class="step-box">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h3>Persiapan File</h3>
+                        <p>Pastikan file video Anda tersimpan di memori perangkat. Format yang kami dukung meliputi MP4, MKV, AVI, dan MOV.</p>
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h3>Proses Konversi</h3>
+                        <p>Klik tombol 'Pilih File', lalu tekan 'Konversi'. <strong>Penting:</strong> Jangan tutup tab browser saat proses loading berjalan agar konversi tidak gagal.</p>
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h3>Menyimpan Hasil</h3>
+                        <p>Setelah selesai, tombol 'Download' akan muncul. Klik untuk menyimpan file MP3 ke folder Download di HP/Laptop Anda.</p>
+                    </div>
+                </div>
+
+                <div class="step-box" style="border-color: rgba(255, 204, 0, 0.3); background: rgba(255, 204, 0, 0.05);">
+                    <div class="step-num" style="background: #ffcc00; color: black;">!</div>
+                    <div class="step-content">
+                        <h3>Mengatasi Masalah (Troubleshooting)</h3>
+                        <p>Jika proses macet (stuck), coba refresh halaman atau gunakan browser Google Chrome versi terbaru. File di atas 1GB membutuhkan RAM perangkat yang cukup besar.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="faq">
+                <h2>❓ Pertanyaan Umum (FAQ)</h2>
+
+                <div class="faq-item">
+                    <div class="faq-q">Apakah layanan ini gratis?</div>
+                    <div class="faq-a">Ya, 100% gratis. Kami tidak memungut biaya langganan apapun. Kami hanya menayangkan iklan untuk mendukung biaya operasional website.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-q">Apakah file saya diupload ke internet?</div>
+                    <div class="faq-a">Tidak. Keamanan adalah prioritas kami. Sistem kami menggunakan teknologi WebAssembly yang memproses video langsung di dalam browser Anda, bukan di server kami.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-q">Berapa batas ukuran file?</div>
+                    <div class="faq-a">Secara teknis kami membatasi hingga 2GB. Namun, untuk kinerja optimal di HP, kami menyarankan file di bawah 500MB.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-q">Kenapa konversi terasa lambat?</div>
+                    <div class="faq-a">Karena proses dilakukan di perangkat Anda, kecepatan konversi sangat bergantung pada kecepatan prosesor (CPU) HP atau Laptop Anda.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-q">Apakah bisa digunakan di iPhone?</div>
+                    <div class="faq-a">Ya, bisa. Pastikan Anda menggunakan browser Safari atau Chrome versi terbaru di iOS.</div>
+                </div>
+
+            </section>
         </div>
-
-        <div class="faq-item">
-            <button class="faq-question">Di mana file hasil download tersimpan? <span class="icon-plus">+</span></button>
-            <div class="faq-answer">File MP3 akan tersimpan di folder "Downloads" atau "Unduhan" di HP/Laptop Anda, sesuai pengaturan browser masing-masing.</div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-question">Kenapa prosesnya cepat sekali? <span class="icon-plus">+</span></button>
-            <div class="faq-answer">Karena kami tidak mengupload video Anda ke internet. Semua proses terjadi langsung di dalam chip prosesor HP/Laptop Anda.</div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-question">Apakah support iPhone? <span class="icon-plus">+</span></button>
-            <div class="faq-answer">Ya! Aplikasi ini berjalan lancar di Safari (iOS), Chrome (Android), Windows, dan MacOS.</div>
-        </div>
-
     </div>
 
-    <script>
-        // Script untuk animasi buka tutup (Accordion)
-        const items = document.querySelectorAll('.faq-item');
-        items.forEach(item => {
-            item.querySelector('.faq-question').addEventListener('click', () => {
-                // Tutup yang lain dulu (opsional, biar rapi)
-                items.forEach(i => { if(i !== item) i.classList.remove('active'); });
-                // Toggle yang diklik
-                item.classList.toggle('active');
-            });
-        });
-    </script>
 </body>
 </html>
